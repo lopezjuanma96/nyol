@@ -1,0 +1,6 @@
+Following this: https://towardsdatascience.com/how-to-upload-your-python-package-to-pypi-de1b363a1b3
+
+- update setup.py version
+- cd to pynyol
+- run "python setup.py sdist"
+- run "twine upload dist/*" (if twine not available install with pip "pip install twine")

@@ -1,8 +1,8 @@
 ===========
-Pynol
+pynyol
 ===========
 
-Pynyol is the Python implementation of the Nyol package. This package is aimed at helping with processing the spanish language.
+pynyol is the Python implementation of the Nyol package. This package is aimed at helping with processing the spanish language.
 
 Each module inside the package provides help in a different area of language processing. These modules are:
 
