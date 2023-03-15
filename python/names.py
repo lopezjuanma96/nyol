@@ -36,3 +36,14 @@ HUNDREDS = [
     "ochocientos"
     "novecientos"
 ]
+
+THOUSAND_MULTIPLIER = [
+    {"default": "%NUM%"},
+    {"un": "mil", "default": "%NUM% mil"},
+    {"un": "%NUM% millón", "default": "%NUM% millones"},
+    {"un": "mil", "default": "%NUM% mil"},
+    {"un": "%NUM% billón", "default": "%NUM% billones"},
+    {"un": "mil", "default": "%NUM% mil"},
+    {"un": "%NUM% trillón", "default": "%NUM% trillones"},
+    {"un": "mil", "default": "%NUM% mil"}
+]

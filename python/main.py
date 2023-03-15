@@ -1,4 +1,4 @@
-from names import UNITS, DECIMALS, HUNDREDS
+from names import UNITS, DECIMALS, HUNDREDS, THOUSAND_MULTIPLIER
 
 class Parser:
 
@@ -67,7 +67,7 @@ class HundredParser(Parser):
         else:
             proc.append(HUNDREDS[hundreds])
 
-        return ' '.join(proc[::-1])
+        return ' '.join(proc[::-1]).strip()
 
 class IntParser(Parser):
 
@@ -87,11 +87,25 @@ class IntParser(Parser):
             proc.append(HundredParser(raw%1000).process())
             raw = raw // 1000
 
+        proc = [self.add_thousand_mult(t, i) for i, t in enumerate(proc)]
+
         #EXCEPTIONS
         if proc[0][-2:] == 'un':
             proc[0] = f'{proc[0]}o' #changes un for uno if its the last number
 
-        return ('menos ' if negative else '') + ''.join(proc[::-1])
+        return ('menos ' if negative else '') + ' '.join(proc[::-1])
+    
+    def add_thousand_mult(self, text, position):
+        if position >= len(THOUSAND_MULTIPLIER):
+            raise ValueError("IntParser only supports transformations of numbers lower than a traditional quadrillion (1e24)")
+        
+        try:
+            mult = THOUSAND_MULTIPLIER[position][text]
+        except KeyError:
+            mult = THOUSAND_MULTIPLIER[position]["default"]
+
+        return mult.replace("%NUM%", text)
+
     
 if __name__ == "__main__":
     ip = IntParser(45)
@@ -111,5 +125,17 @@ if __name__ == "__main__":
     print(ip.txt)
 
     ip.set_number(-567)
+    print(ip.num)
+    print(ip.txt)
+
+    ip.set_number(-567_456)
+    print(ip.num)
+    print(ip.txt)
+
+    ip.set_number(-21_236_458_236_458_123_236_458)
+    print(ip.num)
+    print(ip.txt)
+    
+    ip.set_number(-21_236_458_236_458_123_236_458_458)
     print(ip.num)
     print(ip.txt)
