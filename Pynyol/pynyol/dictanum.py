@@ -1,4 +1,52 @@
-from names import UNITS, DECIMALS, HUNDREDS, THOUSAND_MULTIPLIER
+UNITS = [
+    "cero",
+    "un",
+    "dos",
+    "tres",
+    "cuatro",
+    "cinco",
+    "seis",
+    "siete",
+    "ocho",
+    "nueve"
+]
+
+DECIMALS = [
+    "",
+    "diez",
+    "veinte",
+    "treinta",
+    "cuarenta",
+    "cincuenta",
+    "sesenta",
+    "setenta",
+    "ochenta",
+    "noventa"
+]
+
+HUNDREDS = [
+    "",
+    "ciento",
+    "doscientos",
+    "trescientos",
+    "cuatrocientos",
+    "quinientos",
+    "seiscientos",
+    "setecientos",
+    "ochocientos"
+    "novecientos"
+]
+
+THOUSAND_MULTIPLIER = [
+    {"default": "%NUM%"},
+    {"un": "mil", "default": "%NUM% mil"},
+    {"un": "%NUM% millón", "default": "%NUM% millones"},
+    {"un": "mil", "default": "%NUM% mil"},
+    {"un": "%NUM% billón", "default": "%NUM% billones"},
+    {"un": "mil", "default": "%NUM% mil"},
+    {"un": "%NUM% trillón", "default": "%NUM% trillones"},
+    {"un": "mil", "default": "%NUM% mil"}
+]
 
 class Parser:
 
@@ -105,37 +153,3 @@ class IntParser(Parser):
             mult = THOUSAND_MULTIPLIER[position]["default"]
 
         return mult.replace("%NUM%", text)
-
-    
-if __name__ == "__main__":
-    ip = IntParser(45)
-    print(ip.num)
-    print(ip.txt)
-
-    ip.set_number(0)
-    print(ip.num)
-    print(ip.txt)
-
-    ip.set_number(323)
-    print(ip.num)
-    print(ip.txt)
-
-    ip.set_number(401)
-    print(ip.num)
-    print(ip.txt)
-
-    ip.set_number(-567)
-    print(ip.num)
-    print(ip.txt)
-
-    ip.set_number(-567_456)
-    print(ip.num)
-    print(ip.txt)
-
-    ip.set_number(-21_236_458_236_458_123_236_458)
-    print(ip.num)
-    print(ip.txt)
-    
-    ip.set_number(-21_236_458_236_458_123_236_458_458)
-    print(ip.num)
-    print(ip.txt)

@@ -1,4 +1,6 @@
-from main import IntParser
+#change this for unittest
+
+from pynyol.dictanum import IntParser
 
 MAX_ALLOWED = 1e24
 
