@@ -3,6 +3,7 @@ Following this: https://towardsdatascience.com/how-to-upload-your-python-package
 - update setup.py version
 - cd to pynyol
 - run "python setup.py sdist"
+- optional: check the changes appear correclty on the tar file generated under dist for the new version
 - run "twine upload dist/*" (if twine not available install with pip "pip install twine")
 
 for testing, create a specific environment and inside the pynyol folder (not nyol/pynyol/pynyol, just nyol/pynyol) run "pip install -e ." which install pynyol locally with the source data from that folder
