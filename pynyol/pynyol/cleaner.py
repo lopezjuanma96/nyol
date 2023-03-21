@@ -28,7 +28,14 @@ _SYMBOLS = [
     (r"'|´|`", "\""),
     (r"(\w)-(\w)", "\\1 \\2"), #numeric reference on replace needs backslash scaping or else it treats as a unicode
     (r"-", "—"),
-    (r"ł", "l")
+    #this can not be "detected" as accents and replaced with normalization, maybe find another way, else keep them in symbols but add this to docs
+    (r"ł", "l"), #l with stroke
+    (r"ø", "o"), #o with stroke
+    (r"ã", "a"), #a with tilde
+    (r"ã", "a"), #a and tilde
+    (r"õ", "o"), #o with tilde
+    (r"õ", "o")  #o and tilde
+    (r"ñ", "ñ")  #n and tilde
 ]
 
 _KEEP_THIS_ACCENTS = "áéíóú"
