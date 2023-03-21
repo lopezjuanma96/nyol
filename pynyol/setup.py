@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name='pynyol',
-    version='0.1.1',
+    version='0.1.2',
     author='Juanma López',
     author_email='lopezjuanma96@gmail.com',
     packages=['pynyol', 'pynyol.test'],

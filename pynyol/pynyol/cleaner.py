@@ -1,4 +1,5 @@
 import re
+import unicodedata
 
 from pynyol.dictanum import IntParser
 
@@ -26,8 +27,11 @@ _SYMBOLS = [
     (r";|:", ","),
     (r"'|´|`", "\""),
     (r"(\w)-(\w)", "\\1 \\2"), #numeric reference on replace needs backslash scaping or else it treats as a unicode
-    (r"-", "—")
+    (r"-", "—"),
+    (r"ł", "l")
 ]
+
+_KEEP_THIS_ACCENTS = "áéíóú"
 
 _WHITESPACE_RE = re.compile('\s+')
 _DOTTED_NUMBER_RE = re.compile(r'([0-9][0-9\.]+[0-9])')
@@ -60,6 +64,13 @@ def replace_symbols(text, symb = None):
     for regex, replacement in symb:
         text = re.sub(regex, replacement, text)
     return text
+
+
+def replace_accents(text, keep_this_accents = None):
+    if keep_this_accents is None:
+        keep_this_accents = _KEEP_THIS_ACCENTS
+    
+    return ''.join(unicodedata.normalize('NFKD', l) if l not in keep_this_accents else l for l in text)
 
 
 def _remove_numeric_dots_callback(m):
@@ -160,7 +171,7 @@ def normalize_numbers(text):
     return text
 
 
-def clean(text, clean_abbrev = True, abbrev = None, clean_symb = True, symb = None):
+def clean(text, clean_abbrev = True, abbrev = None, clean_symb = True, symb = None, clean_accents = True, keep_this_accents = None):
     """
     A simple example implementation of all functions above, with some customization, for better use create your own cleaning function using them separately.
     """
@@ -170,6 +181,8 @@ def clean(text, clean_abbrev = True, abbrev = None, clean_symb = True, symb = No
         text = expand_abbreviations(text, abbrev=abbrev)
     if clean_symb:
         text = replace_symbols(text, symb=symb)
+    if clean_accents:
+        text = replace_accents(text, keep_this_accents=keep_this_accents)
     text = normalize_numbers(text)
     text = collapse_whitespace(text)
 
